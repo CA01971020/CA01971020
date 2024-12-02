@@ -12,6 +12,19 @@
   </a>
 <p/>
 
+## My Tech Stack
+### Language
+- JavaScript
+- TypeScript
+### Library
+- React
+### Framework
+- Next.js
+- TailwindCSS
+### Others
+- Docker
+- Firebase
+
 <!--
 **CA01971020/CA01971020** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
