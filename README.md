@@ -12,12 +12,15 @@
   </a>
 <p/>
 
-[![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=transparent)](https://github.com/vn7n24fzkq/github-profile-summary-cards)
+[![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=default)](https://github.com/vn7n24fzkq/github-profile-summary-cards)
+[![](http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default)](https://github.com/vn7n24fzkq/github-profile-summary-cards)[![](http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default)](https://github.com/vn7n24fzkq/github-profile-summary-cards)
 
 ## My Tech Stack
 ### Language
+- HTML5・CSS3
 - JavaScript
 - TypeScript
+- Python
 ### Library
 - React
 ### Framework
@@ -26,6 +29,7 @@
 ### Others
 - Docker
 - Firebase
+
 
 <!--
 **CA01971020/CA01971020** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
