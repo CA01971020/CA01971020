@@ -1,24 +1,8 @@
-# Hello, world! 👋
+# 🌏 Hello, world! 👋
 
-<p align="left">
-  <a href="https://github.com/CA01971020">
-    <img height="24" src="https://komarev.com/ghpvc/?username=CA01971020" />
-  </a>
-  <a href="https://zenn.dev/aputech">
-    <img height="24" src="https://badgen.org/img/zenn/aputech/likes?style=plastic" />
-  </a>
-  <a href="https://zenn.dev/aputech">
-    <img height="24" src="https://badgen.org/img/zenn/aputech/articles?style=plastic" />
-  </a>
-<p/>
+![Header (1)](https://github.com/user-attachments/assets/a3b0ec6c-b42c-4fb4-b7a0-dfd3d2db7020)
 
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=default" alt="Profile Details"/>
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default" alt="Repos Per Language"/>
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default" alt="Most Commit Language"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&theme=default" alt="Top Languages"/>
-
-
-# My Tech Stack
+# 💻 My Tech Stack 💻
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
   <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"/>
@@ -38,18 +22,13 @@
   <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/>
 </div>
 
+# 🔥 GitHub Activity 🔥
 
-<!--
-**CA01971020/CA01971020** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=default" alt="Profile Details"/>
+<img src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default" alt="Repos Per Language"/>
+<img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default" alt="Most Commit Language"/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&theme=default" alt="Top Languages"/>
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+# 🔗 My Portfolio 🔗
+[![Hii Site](https://github-readme-stats.vercel.app/api/pin/?username=CA01971020&repo=hii-site )](https://hii-site.vercel.app/)
+[![yojijyukugo](https://github-readme-stats.vercel.app/api/pin/?username=CA01971020&repo=yojijyukugo)](https://yojijyukugo.vercel.app/)
