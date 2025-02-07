@@ -13,9 +13,9 @@
 <p/>
 
 <img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=default" alt="Profile Details"/>
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default" alt="Repos Per Language" height="200"/>
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default" alt="Most Commit Language" height="200"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&theme=default" alt="Top Languages" height="200"/>
+<img src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default" alt="Repos Per Language"/>
+<img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default" alt="Most Commit Language"/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&theme=default" alt="Top Languages"/>
 
 
 # My Tech Stack
