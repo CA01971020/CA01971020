@@ -1,6 +1,7 @@
 # 🌏 Hello, world! 👋
 
-![Header (1)](https://github.com/user-attachments/assets/a3b0ec6c-b42c-4fb4-b7a0-dfd3d2db7020)
+![github_profile_readme](https://github.com/user-attachments/assets/2d0d7b1a-a2a3-4687-b566-0f929259ace8)
+[Icons by Icons8](https://icons8.jp/)
 
 # 💻 My Tech Stack 💻
 
