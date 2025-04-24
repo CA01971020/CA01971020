@@ -29,7 +29,3 @@
 <img src="http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=CA01971020&theme=default" alt="Repos Per Language"/>
 <img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=CA01971020&theme=default" alt="Most Commit Language"/>
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&theme=default" alt="Top Languages"/>
-
-# 🔗 My Portfolio 🔗
-[![Hii Site](https://github-readme-stats.vercel.app/api/pin/?username=CA01971020&repo=hii-site )](https://hii-site.vercel.app/)
-[![yojijyukugo](https://github-readme-stats.vercel.app/api/pin/?username=CA01971020&repo=yojijyukugo)](https://yojijyukugo.vercel.app/)
