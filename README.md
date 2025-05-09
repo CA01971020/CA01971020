@@ -1,25 +1,45 @@
-# Hello, world!
+<!-- GitHub README.md -->
 
-![github_profile_readme](https://github.com/user-attachments/assets/2d0d7b1a-a2a3-4687-b566-0f929259ace8)
-[Icons by Icons8](https://icons8.jp/)
+<h1 align="center" style="font-weight: bold">Hii-dev</h1>
+<p align="center">Web Developer / Frontend & Backend <br/> Kawahara Computer Business College. / Sanno University.</p>
 
-# My Tech Stack
+<p align="center">
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=2000&color=000000&center=true&vCenter=true&width=500&lines=Student+engineer+from+Japan;Love+modern+web+development;React+and+FastAPI+enthusiast" alt="typing" />
+</p>
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"/>
-  <img src="https://img.shields.io/badge/-Css3-blue.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
-  <img src="https://img.shields.io/badge/tailwindcss-%2338BDF8.svg?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
-  <img src="https://img.shields.io/badge/javascript-yellow.svg?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript"/>
-  <img src="https://img.shields.io/badge/typescript-blue.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="typescript"/>
-  <img src="https://img.shields.io/badge/react-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=white&textColor=white" alt="React"/>
-  <img src="https://img.shields.io/badge/next.js-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
-  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python"/>
-  <img src="https://img.shields.io/badge/FastAPI-%23F5A200.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-  <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-  <img src="https://img.shields.io/badge/Azure-%230078D4.svg?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Azure"/>
-  <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/>
-</div>
+## Tech Stack
 
-# GitHub Activity
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-000000?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-000000?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/TailwindCSS-000000?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-000000?style=for-the-badge&logo=javascript&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-000000?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white" />
+</p>
 
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=default" alt="Profile Details"/>
+## GitHub Stats
+
+<p align="center">
+  <img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=CA01971020&theme=github" />
+  <img src="https://github-readme-stats.vercel.app/api?username=CA01971020&show_icons=true&hide_border=true&theme=graywhite" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=CA01971020&theme=graywhite&hide_border=true" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=CA01971020&layout=compact&hide=Jupyter%20Notebook&langs_count=6&hide_border=true&theme=graywhite" />
+</p>
+
+
+
+## Links
+
+<p align="center">
+  <a href="https://hii-dev.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  </a>
+  <a href="https://zenn.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/Zenn-000000?style=for-the-badge&logo=zenn&logoColor=white" />
+  </a>
+</p>
+
