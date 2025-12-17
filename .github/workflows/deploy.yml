@@ -2,12 +2,13 @@ name: Generate SVGs and Deploy
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,10 +19,44 @@ jobs:
       - name: Install dependencies
         run: pip install requests python-dateutil
 
+      - name: Restore previous contributions
+        uses: actions/cache@v4
+        with:
+          path: prev_contributions.txt
+          key: contributions-cache
+
+      - name: Fetch current contributions
+        env:
+          PROFILE_GH_TOKEN: ${{ secrets.PROFILE_GH_TOKEN }}
+        run: |
+          python scripts/get_total_contributions.py
+          mv total_contributions.txt current_contributions.txt
+
+      - name: Check contributions diff
+        id: diff
+        run: |
+          PREV=0
+          if [ -f prev_contributions.txt ]; then
+            PREV=$(cat prev_contributions.txt)
+          fi
+
+          CURR=$(cat current_contributions.txt)
+
+          echo "prev=$PREV"
+          echo "curr=$CURR"
+
+          if [ "$CURR" -le "$PREV" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Ensure public directory exists
+        if: steps.diff.outputs.changed == 'true'
         run: mkdir -p public
 
       - name: Generate SVGs
+        if: steps.diff.outputs.changed == 'true'
         env:
           PROFILE_GH_TOKEN: ${{ secrets.PROFILE_GH_TOKEN }}
         run: |
@@ -32,12 +67,18 @@ jobs:
           python scripts/total_contributions.py
 
       - name: Verify public directory
+        if: steps.diff.outputs.changed == 'true'
         run: ls -la public
 
       - name: Deploy to Netlify
+        if: steps.diff.outputs.changed == 'true'
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=public --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Save current contributions
+        if: steps.diff.outputs.changed == 'true'
+        run: cp current_contributions.txt prev_contributions.txt
