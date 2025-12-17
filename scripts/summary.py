@@ -46,10 +46,10 @@ email = data.get("email") or "N/A"
 email = "CA01971020@st.kawahara.ac.jp"
 location = data.get("location") or "N/A"
 
-MAX_STARS = 100
-MAX_FOLLOWERS = 100
-MAX_REPOS = 50
-MAX_COMMITS = 500
+MAX_STARS = 10
+MAX_FOLLOWERS = 30
+MAX_REPOS = 40
+MAX_COMMITS = 1200
 
 # ===== レイアウト =====
 WIDTH = 440
