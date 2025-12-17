@@ -2,7 +2,7 @@ name: Generate SVGs and Deploy
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 0,12 * * *"
   workflow_dispatch:
 
 jobs:
