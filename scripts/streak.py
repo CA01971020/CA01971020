@@ -8,8 +8,6 @@ USER = "CA01971020"
 if not TOKEN:
     raise EnvironmentError("PROFILE_GH_TOKEN が設定されていません。")
 
-# ===== GitHub GraphQL で contributions を取得 =====
-# 過去1年分を取得して streak を計算
 today = date.today()
 from_date = today - timedelta(days=365)
 
@@ -42,14 +40,12 @@ if "errors" in json_data:
 
 weeks = json_data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-# ===== 日ごとのコミットをフラットにしてリスト化 =====
 days = []
 for week in weeks:
     for day in week["contributionDays"]:
         dt = datetime.strptime(day["date"], "%Y-%m-%d").date()
         days.append((dt, day["contributionCount"]))
 
-# 日付順にソート
 days.sort()
 
 # ===== ストリーク計算 =====
@@ -69,7 +65,6 @@ for dt, count in days:
     else:
         temp_streak = 0
 
-# 現在のストリーク（最後の日が today かどうかで判定）
 current_streak = 0
 for dt, count in reversed(days):
     if count > 0:
@@ -79,7 +74,7 @@ for dt, count in reversed(days):
 
 streak_start = streak_start_date.isoformat() if streak_start_date else "N/A"
 
-# ===== SVG レイアウト =====
+# ===== レイアウト =====
 WIDTH = 440
 HEIGHT = 150
 LEFT = 24
@@ -154,7 +149,6 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
 </svg>
 """
 
-# public ディレクトリ作成 & SVG 保存
 os.makedirs("public", exist_ok=True)
 with open("public/streak.svg", "w", encoding="utf-8") as f:
     f.write(svg)

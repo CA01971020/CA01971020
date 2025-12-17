@@ -8,7 +8,6 @@ USER = "CA01971020"
 if not TOKEN:
     raise EnvironmentError("PROFILE_GH_TOKEN が設定されていません。")
 
-# 過去1年分
 today = date.today()
 from_date = today - timedelta(days=365)
 to_date = today
@@ -41,7 +40,6 @@ json_data = res.json()
 if "errors" in json_data:
     raise RuntimeError(json_data["errors"])
 
-# 月ごとの集計
 weeks = json_data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 monthly_commits = [0] * 12
 
@@ -51,7 +49,7 @@ for week in weeks:
         month_index = dt.month - 1
         monthly_commits[month_index] += day["contributionCount"]
 
-# ===== SVG 出力部分は既存の commits_monthly.py と同様 =====
+# ===== レイアウト =====
 WIDTH = 440
 HEIGHT = 260
 LEFT = 32

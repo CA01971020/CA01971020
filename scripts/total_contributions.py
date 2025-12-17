@@ -17,10 +17,8 @@ for i in range(YEARS_BACK):
     from_date = date(year, 1, 1)
     to_date = date(year, 12, 31)
     if year == today.year:
-        to_date = today  # 今年の場合は今日まで
+        to_date = today
 
-    # ここで期間が 1 年を超えないことを確認
-    # GraphQL API は UTC で時刻を指定
     query = """
     query {
       user(login: "%s") {
@@ -49,10 +47,11 @@ for i in range(YEARS_BACK):
 
 print(f"合計貢献数: {total_contributions}")
 
-# ===== SVG レイアウト =====
+# ===== レイアウト =====
 WIDTH = 440
 HEIGHT = 150
 LEFT = 24
+
 today_str = today.isoformat()
 
 svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
@@ -105,7 +104,6 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
 </svg>
 """
 
-# public ディレクトリ作成 & SVG 保存
 os.makedirs("public", exist_ok=True)
 with open("public/total_contributions.svg", "w", encoding="utf-8") as f:
     f.write(svg)

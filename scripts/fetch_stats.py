@@ -1,4 +1,3 @@
-# scripts/fetch_stats.py
 import os
 import requests
 from datetime import datetime

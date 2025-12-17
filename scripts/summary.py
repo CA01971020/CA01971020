@@ -5,7 +5,6 @@ from datetime import date
 TOKEN = os.environ["PROFILE_GH_TOKEN"]
 USER = "CA01971020"
 
-# ===== GitHub GraphQL で contributions を取得 =====
 query = """
 query {
   user(login: "%s") {
@@ -37,18 +36,16 @@ res = requests.post(
 )
 data = res.json()["data"]["user"]
 
-# ===== API から取得した値を変数に格納 =====
 stars = data.get("starredRepositories", {}).get("totalCount", 0)
 followers = data.get("followers", {}).get("totalCount", 0)
 public_repos = data.get("repositories", {}).get("totalCount", 0)
 commits = data.get("contributionsCollection", {}).get("contributionCalendar", {}).get("totalContributions", 0)
 
-account_created = data.get("createdAt", "").split("T")[0]  # 例: "2023-04-12"
+account_created = data.get("createdAt", "").split("T")[0]
 email = data.get("email") or "N/A"
 email = "CA01971020@st.kawahara.ac.jp"
 location = data.get("location") or "N/A"
 
-# グラフ最大値（見た目用）
 MAX_STARS = 100
 MAX_FOLLOWERS = 100
 MAX_REPOS = 50
@@ -56,7 +53,7 @@ MAX_COMMITS = 500
 
 # ===== レイアウト =====
 WIDTH = 440
-HEIGHT = 260   # ← 高さを増やす
+HEIGHT = 260
 
 LEFT = 24
 LABEL_X = LEFT
