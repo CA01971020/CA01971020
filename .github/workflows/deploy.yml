@@ -1,0 +1,43 @@
+name: Generate SVGs and Deploy
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests python-dateutil
+
+      - name: Ensure public directory exists
+        run: mkdir -p public
+
+      - name: Generate SVGs
+        env:
+          PROFILE_GH_TOKEN: ${{ secrets.PROFILE_GH_TOKEN }}
+        run: |
+          python scripts/fetch_stats.py
+          python scripts/summary.py
+          python scripts/commits_monthly.py
+          python scripts/streak.py
+          python scripts/total_contributions.py
+
+      - name: Verify public directory
+        run: ls -la public
+
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=public --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
