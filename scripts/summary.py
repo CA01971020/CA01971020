@@ -2,56 +2,88 @@ import os
 import requests
 from datetime import date
 
+# ======================
+# GitHub 設定
+# ======================
 TOKEN = os.environ["PROFILE_GH_TOKEN"]
 USER = "CA01971020"
 
-query = """
-query {
-  user(login: "%s") {
-    followers {
+# ======================
+# 今年の期間を作成
+# ======================
+today = date.today()
+year_start = date(today.year, 1, 1)
+
+FROM = year_start.isoformat() + "T00:00:00Z"
+TO = today.isoformat() + "T23:59:59Z"
+
+# ======================
+# GraphQL クエリ
+# ======================
+query = f"""
+query {{
+  user(login: "{USER}") {{
+    followers {{
       totalCount
-    }
-    repositories(privacy: PUBLIC) {
+    }}
+    repositories(privacy: PUBLIC) {{
       totalCount
-    }
-    contributionsCollection {
-      contributionCalendar {
+    }}
+    contributionsCollection(from: "{FROM}", to: "{TO}") {{
+      contributionCalendar {{
         totalContributions
-      }
-    }
+      }}
+    }}
     email
     createdAt
     location
-    starredRepositories {
+    starredRepositories {{
       totalCount
-    }
-  }
-}
-""" % USER
+    }}
+  }}
+}}
+"""
 
+# ======================
+# API リクエスト
+# ======================
 res = requests.post(
     "https://api.github.com/graphql",
     headers={"Authorization": f"Bearer {TOKEN}"},
-    json={"query": query}
+    json={"query": query},
 )
+
+res.raise_for_status()
 data = res.json()["data"]["user"]
 
+# ======================
+# データ取得
+# ======================
 stars = data.get("starredRepositories", {}).get("totalCount", 0)
 followers = data.get("followers", {}).get("totalCount", 0)
 public_repos = data.get("repositories", {}).get("totalCount", 0)
-commits = data.get("contributionsCollection", {}).get("contributionCalendar", {}).get("totalContributions", 0)
+commits = (
+    data.get("contributionsCollection", {})
+        .get("contributionCalendar", {})
+        .get("totalContributions", 0)
+)
 
 account_created = data.get("createdAt", "").split("T")[0]
 email = data.get("email") or "N/A"
 email = "CA01971020@st.kawahara.ac.jp"
 location = data.get("location") or "N/A"
 
+# ======================
+# 最大値（バー表示用）
+# ======================
 MAX_STARS = 10
 MAX_FOLLOWERS = 30
 MAX_REPOS = 40
 MAX_COMMITS = 1200
 
-# ===== レイアウト =====
+# ======================
+# SVG レイアウト
+# ======================
 WIDTH = 440
 HEIGHT = 260
 
@@ -76,10 +108,11 @@ items = [
 ]
 
 INFO_START_Y = START_Y + ROW_GAP * len(items) + 28
-INFO_GAP = 18  # Account info の行間
+INFO_GAP = 18
 
-today = date.today().isoformat()
-
+# ======================
+# SVG 行生成
+# ======================
 rows = ""
 for i, (label, value, max_val) in enumerate(items):
     y = START_Y + i * ROW_GAP
@@ -94,6 +127,9 @@ for i, (label, value, max_val) in enumerate(items):
           rx="4" fill="#111827"/>
     """
 
+# ======================
+# SVG 本体
+# ======================
 svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
   viewBox="0 0 {WIDTH} {HEIGHT}"
   xmlns="http://www.w3.org/2000/svg">
@@ -128,27 +164,18 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
       font-size: 11px;
       fill: #111827;
     }}
-    .footer {{
-      font-size: 10px;
-      fill: #6b7280;
-    }}
   </style>
 
-  <!-- Card -->
   <rect x="0.5" y="0.5" width="{WIDTH-1}" height="{HEIGHT-1}" class="card"/>
 
-  <!-- Title -->
   <text x="{LEFT}" y="28" class="title">GitHub Summary</text>
 
-  <!-- Stats -->
   {rows}
 
-  <!-- Divider -->
   <line x1="{LEFT}" y1="{INFO_START_Y - 24}"
         x2="{WIDTH - LEFT}" y2="{INFO_START_Y - 24}"
         stroke="#e5e7eb"/>
 
-  <!-- Account info -->
   <text x="{LEFT}" y="{INFO_START_Y}" class="info-label">
     Account created
   </text>
@@ -170,10 +197,13 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
     {location}
   </text>
 
-
 </svg>
 """
 
+# ======================
+# ファイル出力
+# ======================
+os.makedirs("public", exist_ok=True)
 with open("public/summary.svg", "w", encoding="utf-8") as f:
     f.write(svg)
 
