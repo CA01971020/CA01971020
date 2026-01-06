@@ -96,11 +96,6 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
     {total_contributions:,}
   </text>
 
-  <!-- Footer -->
-  <text x="{WIDTH / 2}" y="{HEIGHT - 14}" class="footer">
-    All time · Updated {today_str}
-  </text>
-
 </svg>
 """
 
