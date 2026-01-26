@@ -49,11 +49,11 @@ for week in weeks:
 days.sort()
 
 # ===== ストリーク計算 =====
-current_streak = 0
 longest_streak = 0
 temp_streak = 0
-streak_start_date = None
+longest_start_date = None
 
+# 最長ストリーク計算
 for dt, count in days:
     if count > 0:
         temp_streak += 1
@@ -61,18 +61,24 @@ for dt, count in days:
             temp_start = dt
         if temp_streak > longest_streak:
             longest_streak = temp_streak
-            streak_start_date = temp_start
+            longest_start_date = temp_start
     else:
         temp_streak = 0
 
+# 現在のストリーク計算
 current_streak = 0
+current_start_date = None
 for dt, count in reversed(days):
     if count > 0:
         current_streak += 1
     else:
         break
 
-streak_start = streak_start_date.isoformat() if streak_start_date else "N/A"
+if current_streak > 0:
+    current_start_date = days[-current_streak][0]
+
+# SVG に表示する日付は current streak の開始日に変更
+streak_start = current_start_date.isoformat() if current_start_date else "N/A"
 
 # ===== レイアウト =====
 WIDTH = 440
