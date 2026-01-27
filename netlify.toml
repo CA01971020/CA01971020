@@ -1,4 +1,5 @@
 [build]
+  command = "pip install requests && python scripts/fetch_stats.py && python scripts/summary.py && python scripts/commits_monthly.py && python scripts/streak.py && python scripts/total_contributions.py"
   publish = "public"
 
 [[headers]]
