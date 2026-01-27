@@ -1,6 +1,6 @@
 import os
 import requests
-from datetime import date, timedelta
+from datetime import date
 
 TOKEN = os.environ.get("PROFILE_GH_TOKEN")
 USER = "CA01971020"
@@ -9,7 +9,7 @@ if not TOKEN:
     raise EnvironmentError("PROFILE_GH_TOKEN が設定されていません。")
 
 today = date.today()
-from_date = today - timedelta(days=365)
+from_date = date(today.year, 1, 1)
 to_date = today
 
 query = """
@@ -106,7 +106,7 @@ svg = f"""<svg width="{WIDTH}" height="{HEIGHT}"
   </style>
 
   <rect x="0.5" y="0.5" width="{WIDTH-1}" height="{HEIGHT-1}" class="card"/>
-  <text x="{LEFT}" y="26" class="title">Commits per Month (Last 12 months)</text>
+  <text x="{LEFT}" y="26" class="title">Commits in {today.year}</text>
   {bars}
   {labels}
 </svg>
