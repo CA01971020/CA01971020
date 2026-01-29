@@ -82,3 +82,80 @@ jobs:
       - name: Save current contributions
         if: steps.diff.outputs.changed == 'true'
         run: cp current_contributions.txt prev_contributions.txt
+
+      - name: Notify LINE (Updated)
+        if: success() && steps.diff.outputs.changed == 'true'
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: |
+          MESSAGE="Contributions 更新あり！
+
+          + SVG 再生成
+          + Netlify デプロイ完了👍
+
+          Repo: ${{ github.repository }}
+          Trigger: ${{ github.event_name }}
+
+          Actions:
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -s -X POST https://api.line.me/v2/bot/message/push \
+            -H "Authorization: Bearer $LINE_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"to\": \"$LINE_USER_ID\",
+              \"messages\": [
+                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+              ]
+            }"
+
+      - name: Notify LINE (No Change)
+        if: success() && steps.diff.outputs.changed == 'false'
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: |
+          MESSAGE="Contributions 変化なし
+
+          今回は SVG 生成・デプロイはスキップされました。
+
+          Repo: ${{ github.repository }}
+          Trigger: ${{ github.event_name }}
+
+          Actions:
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -s -X POST https://api.line.me/v2/bot/message/push \
+            -H "Authorization: Bearer $LINE_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"to\": \"$LINE_USER_ID\",
+              \"messages\": [
+                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+              ]
+            }"
+
+      - name: Notify LINE (Failure)
+        if: failure()
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: |
+          MESSAGE="GitHub Actions 失敗
+
+          Repo: ${{ github.repository }}
+          Job: build
+
+          ログを確認してください↓
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -s -X POST https://api.line.me/v2/bot/message/push \
+            -H "Authorization: Bearer $LINE_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"to\": \"$LINE_USER_ID\",
+              \"messages\": [
+                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+              ]
+            }"
