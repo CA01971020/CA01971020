@@ -89,10 +89,10 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="Contributions 更新あり！
+          MESSAGE="📈 Contributions 更新あり！
 
-          + SVG 再生成
-          + Netlify デプロイ完了👍
+          ・SVG 再生成
+          ・Netlify デプロイ完了 👍
 
           Repo: ${{ github.repository }}
           Trigger: ${{ github.event_name }}
@@ -100,15 +100,18 @@ jobs:
           Actions:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          curl -s -X POST https://api.line.me/v2/bot/message/push \
-            -H "Authorization: Bearer $LINE_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"to\": \"$LINE_USER_ID\",
-              \"messages\": [
-                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+          jq -n \
+            --arg to "$LINE_USER_ID" \
+            --arg text "$MESSAGE" \
+            '{
+              to: $to,
+              messages: [
+                { type: "text", text: $text }
               ]
-            }"
+            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
+              -H "Authorization: Bearer $LINE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d @-
 
       - name: Notify LINE (No Change)
         if: success() && steps.diff.outputs.changed == 'false'
@@ -116,7 +119,7 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="Contributions 変化なし
+          MESSAGE="📊 Contributions 変化なし
 
           今回は SVG 生成・デプロイはスキップされました。
 
@@ -126,15 +129,18 @@ jobs:
           Actions:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          curl -s -X POST https://api.line.me/v2/bot/message/push \
-            -H "Authorization: Bearer $LINE_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"to\": \"$LINE_USER_ID\",
-              \"messages\": [
-                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+          jq -n \
+            --arg to "$LINE_USER_ID" \
+            --arg text "$MESSAGE" \
+            '{
+              to: $to,
+              messages: [
+                { type: "text", text: $text }
               ]
-            }"
+            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
+              -H "Authorization: Bearer $LINE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d @-
 
       - name: Notify LINE (Failure)
         if: failure()
@@ -142,20 +148,23 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="GitHub Actions 失敗
+          MESSAGE="💥 GitHub Actions 失敗
 
           Repo: ${{ github.repository }}
           Job: build
 
-          ログを確認してください↓
+          ログを確認してください👇
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          curl -s -X POST https://api.line.me/v2/bot/message/push \
-            -H "Authorization: Bearer $LINE_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"to\": \"$LINE_USER_ID\",
-              \"messages\": [
-                { \"type\": \"text\", \"text\": \"$MESSAGE\" }
+          jq -n \
+            --arg to "$LINE_USER_ID" \
+            --arg text "$MESSAGE" \
+            '{
+              to: $to,
+              messages: [
+                { type: "text", text: $text }
               ]
-            }"
+            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
+              -H "Authorization: Bearer $LINE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d @-
