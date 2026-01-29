@@ -100,7 +100,7 @@ jobs:
           Actions:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          jq -n \
+          printf '%s' "$MESSAGE" | jq -Rs \
             --arg to "$LINE_USER_ID" \
             --arg text "$MESSAGE" \
             '{
@@ -129,7 +129,7 @@ jobs:
           Actions:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          jq -n \
+          printf '%s' "$MESSAGE" | jq -Rs \
             --arg to "$LINE_USER_ID" \
             --arg text "$MESSAGE" \
             '{
@@ -156,7 +156,7 @@ jobs:
           ログを確認してください👇
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-          jq -n \
+          printf '%s' "$MESSAGE" | jq -Rs \
             --arg to "$LINE_USER_ID" \
             --arg text "$MESSAGE" \
             '{
