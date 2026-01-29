@@ -89,10 +89,10 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="📈 Contributions 更新あり！
+          MESSAGE="Github Actionsから伝令！ Contributions 更新あり！
 
           ・SVG 再生成
-          ・Netlify デプロイ完了 👍
+          ・Netlify デプロイ完了
 
           Repo: ${{ github.repository }}
           Trigger: ${{ github.event_name }}
@@ -119,7 +119,7 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="📊 Contributions 変化なし
+          MESSAGE="Github Actionsから伝令！ Contributions 変化なし！
 
           今回は SVG 生成・デプロイはスキップされました。
 
@@ -148,7 +148,7 @@ jobs:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="💥 GitHub Actions 失敗
+          MESSAGE="Github Actionsから伝令！ GitHub Actions 失敗！
 
           Repo: ${{ github.repository }}
           Job: build
