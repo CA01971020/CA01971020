@@ -48,6 +48,10 @@ for week in weeks:
 
 days.sort()
 
+# ===== 今日が 0 commit の場合は除外 =====
+if days and days[-1][1] == 0:
+    days = days[:-1]
+
 # ===== ストリーク計算 =====
 longest_streak = 0
 temp_streak = 0

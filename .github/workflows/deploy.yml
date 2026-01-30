@@ -31,13 +31,23 @@ jobs:
           python scripts/streak.py
           python scripts/total_contributions.py
 
-      - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
+      - uses: actions/setup-node@v4
         with:
-          args: deploy --dir=public --prod
+          node-version: 20
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          netlify deploy \
+            --dir=public \
+            --prod \
+            --site=$NETLIFY_SITE_ID \
+            --auth=$NETLIFY_AUTH_TOKEN
 
       - name: Notify LINE (Daily Deploy Success)
         if: success()
@@ -60,6 +70,38 @@ jobs:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           今日も平常運転です 👍"
+
+          printf '%s' "$MESSAGE" | jq -Rs \
+            --arg to "$LINE_USER_ID" \
+            --arg text "$MESSAGE" \
+            '{
+              to: $to,
+              messages: [
+                { type: "text", text: $text }
+              ]
+            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
+              -H "Authorization: Bearer $LINE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d @-
+
+      - name: Notify LINE (Deploy Failed)
+        if: failure()
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: |
+          MESSAGE="⚠️ GitHub Actions デプロイ失敗
+
+          🗂 Repo:
+          ${{ github.repository }}
+
+          ⏱ Trigger:
+          ${{ github.event_name }}
+
+          🔗 Actions Run:
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          ログを確認してください。"
 
           printf '%s' "$MESSAGE" | jq -Rs \
             --arg to "$LINE_USER_ID" \
