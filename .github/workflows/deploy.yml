@@ -1,8 +1,6 @@
-name: Generate SVGs and Deploy
-
 on:
   schedule:
-    - cron: "0 0,12 * * *"
+    - cron: "0 16 * * *" # JST 1:00 AM daily
   workflow_dispatch:
 
 jobs:
@@ -17,61 +15,23 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests python-dateutil
-
-      - name: Restore previous contributions
-        uses: actions/cache@v4
-        with:
-          path: prev_contributions.txt
-          key: contributions-cache
-
-      - name: Fetch current contributions
-        env:
-          PROFILE_GH_TOKEN: ${{ secrets.PROFILE_GH_TOKEN }}
         run: |
-          python scripts/get_total_contributions.py
-          mv total_contributions.txt current_contributions.txt
-
-      - name: Check contributions diff
-        id: diff
-        run: |
-          PREV=0
-          if [ -f prev_contributions.txt ]; then
-            PREV=$(cat prev_contributions.txt)
-          fi
-
-          CURR=$(cat current_contributions.txt)
-
-          echo "prev=$PREV"
-          echo "curr=$CURR"
-
-          if [ "$CURR" -le "$PREV" ]; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Ensure public directory exists
-        if: steps.diff.outputs.changed == 'true'
-        run: mkdir -p public
+          pip install requests python-dateutil
+          sudo apt-get update
+          sudo apt-get install -y jq
 
       - name: Generate SVGs
-        if: steps.diff.outputs.changed == 'true'
         env:
           PROFILE_GH_TOKEN: ${{ secrets.PROFILE_GH_TOKEN }}
         run: |
+          mkdir -p public
           python scripts/fetch_stats.py
           python scripts/summary.py
           python scripts/commits_monthly.py
           python scripts/streak.py
           python scripts/total_contributions.py
 
-      - name: Verify public directory
-        if: steps.diff.outputs.changed == 'true'
-        run: ls -la public
-
       - name: Deploy to Netlify
-        if: steps.diff.outputs.changed == 'true'
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=public --prod
@@ -79,82 +39,27 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      - name: Save current contributions
-        if: steps.diff.outputs.changed == 'true'
-        run: cp current_contributions.txt prev_contributions.txt
-
-      - name: Notify LINE (Updated)
-        if: success() && steps.diff.outputs.changed == 'true'
+      - name: Notify LINE (Daily Deploy Success)
+        if: success()
         env:
           LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
         run: |
-          MESSAGE="Github Actionsから伝令！ Contributions 更新あり！
+          MESSAGE="GitHub Actions 定期デプロイ完了！
 
-          ・SVG 再生成
-          ・Netlify デプロイ完了
+          ・SVG 生成 OK
+          ・Netlify デプロイ OK
 
-          Repo: ${{ github.repository }}
-          Trigger: ${{ github.event_name }}
+          🗂 Repo:
+          ${{ github.repository }}
 
-          Actions:
-          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          ⏱ Trigger:
+          ${{ github.event_name }}
 
-          printf '%s' "$MESSAGE" | jq -Rs \
-            --arg to "$LINE_USER_ID" \
-            --arg text "$MESSAGE" \
-            '{
-              to: $to,
-              messages: [
-                { type: "text", text: $text }
-              ]
-            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
-              -H "Authorization: Bearer $LINE_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d @-
+          🔗 Actions Run:
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-      - name: Notify LINE (No Change)
-        if: success() && steps.diff.outputs.changed == 'false'
-        env:
-          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
-          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-        run: |
-          MESSAGE="Github Actionsから伝令！ Contributions 変化なし！
-
-          今回は SVG 生成・デプロイはスキップされました。
-
-          Repo: ${{ github.repository }}
-          Trigger: ${{ github.event_name }}
-
-          Actions:
-          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          printf '%s' "$MESSAGE" | jq -Rs \
-            --arg to "$LINE_USER_ID" \
-            --arg text "$MESSAGE" \
-            '{
-              to: $to,
-              messages: [
-                { type: "text", text: $text }
-              ]
-            }' | curl -s -X POST https://api.line.me/v2/bot/message/push \
-              -H "Authorization: Bearer $LINE_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d @-
-
-      - name: Notify LINE (Failure)
-        if: failure()
-        env:
-          LINE_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
-          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-        run: |
-          MESSAGE="Github Actionsから伝令！ GitHub Actions 失敗！
-
-          Repo: ${{ github.repository }}
-          Job: build
-
-          ログを確認してください👇
-          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          今日も平常運転です 👍"
 
           printf '%s' "$MESSAGE" | jq -Rs \
             --arg to "$LINE_USER_ID" \
