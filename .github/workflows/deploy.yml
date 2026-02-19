@@ -69,6 +69,9 @@ jobs:
           🔗 Actions Run:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
+          🔗 hii dev GitHub Profile
+          https://github.com/CA01971020
+
           今日も平常運転です 👍"
 
           printf '%s' "$MESSAGE" | jq -Rs \
