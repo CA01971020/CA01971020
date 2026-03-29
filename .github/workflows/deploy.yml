@@ -70,7 +70,7 @@ jobs:
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           🔗 hii dev GitHub Profile
-          https://github.com/CA01971020
+          https://github.com/Hii-Dev
 
           今日も平常運転です 👍"
 
