@@ -6,7 +6,7 @@ from datetime import date
 # GitHub 設定
 # ======================
 TOKEN = os.environ["PROFILE_GH_TOKEN"]
-USER = "CA01971020"
+USER = "Hii-Dev"
 
 # ======================
 # 今年の期間を作成
@@ -70,7 +70,7 @@ commits = (
 
 account_created = data.get("createdAt", "").split("T")[0]
 email = data.get("email") or "N/A"
-email = "CA01971020@st.kawahara.ac.jp"
+email = "hhrtx0517@gmail.com"
 location = data.get("location") or "N/A"
 
 # ======================

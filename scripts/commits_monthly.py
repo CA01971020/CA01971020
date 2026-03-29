@@ -3,7 +3,7 @@ import requests
 from datetime import date
 
 TOKEN = os.environ.get("PROFILE_GH_TOKEN")
-USER = "CA01971020"
+USER = "Hii-Dev"
 
 if not TOKEN:
     raise EnvironmentError("PROFILE_GH_TOKEN が設定されていません。")

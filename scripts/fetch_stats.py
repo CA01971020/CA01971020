@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 
 TOKEN = os.environ["PROFILE_GH_TOKEN"]
-USER = "CA01971020"
+USER = "Hii-Dev"
 
 query = """
 query {
