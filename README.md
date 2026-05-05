@@ -1,5 +1,5 @@
 <h1 align="center" style="font-weight: bold">Hii-dev</h1>
-<p align="center">Web Developer <br/> Kawahara Computer Business College. / Sanno University.</p>
+<p align="center">Web Developer <br/> Kawahara Computer Business College, Graduated 2026<br/>Sanno University, Graduated 2026</p>
 
 <p align="center">
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=2000&color=000000&center=true&vCenter=true&width=600&lines=Hi,+I'm+Hii.;An+engineering+student+from+Ehime,+Japan.;Studying+at+Kawahara+Computer+Business+College.;Also+affiliated+with+Sanno+University.;Aspiring+web+developer.;Passionate+about+beer+and+reading." alt="typing" />
